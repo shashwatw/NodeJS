@@ -1,5 +1,5 @@
 const fs = require('fs');
-const http = require('http')
+const http = require('http');
 const url = require('url');
 
 ///////////////////////////////////////////////////
@@ -38,6 +38,10 @@ console.log("will read file");
 //////////////////////////////////////
 //Server
 
+//synchronous verison in next 3 lines because it is top level of code and is executed only once
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
+const dataObj =  JSON.parse(data);
+
 const server = http.createServer((req, res)=>{
     console.log(req.url);
 
@@ -45,11 +49,23 @@ const pathName = req.url;
 
 if(pathName === '/' || pathName === '/overview')
 {
-    res.end('This is overview');
+    res.end('This is OVERVIEW');
 }
 else if(pathName === '/product')
 {
-    res.end('This is product');
+    res.end('This is PRODUCT');
+}
+else if(pathName === '/api')
+{
+    // fs.readFile('./dev-data/data.json')
+    /* no need of this code as it is already executed in top level of code
+    fs.readFile(`${__dirname}/dev-data/data.json`, 'utf-8', (err,data)=>{
+       const productData =  JSON.parse(data);
+    */
+    //    console.log(productData);
+    res.writeHead(200, {
+        'Content-type': 'application/json'});
+       res.end(data);
 }
 else{
     res.writeHead(404, {
