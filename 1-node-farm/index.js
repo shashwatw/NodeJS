@@ -6,6 +6,7 @@ const slugify = require('slugify');
 
 const replaceTemplate = require('./modules/replaceTemplate');
 
+//OS switch/testing
 ///////////////////////////////////////////////////
 //Files
 
