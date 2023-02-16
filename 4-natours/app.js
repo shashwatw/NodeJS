@@ -3,7 +3,19 @@ const express = require("express");
 
 const app = express();
 
+// in order to use middleware
 app.use(express.json());
+
+//middleware func
+app.use((req, res, next) => {
+  console.log("Hello from the middleware");
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 // app.get("/", (req, res) => {
 //   res
@@ -23,8 +35,11 @@ const tours = JSON.parse(
 
 //refactoringcodes
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
+
   res.status(200).json({
     status: "success",
+    requestedAt: req.requestTime,
     results: tours.length,
     data: {
       tours,
