@@ -18,6 +18,25 @@ mongoose
   })
   .then(() => console.log("DB connection successful!"));
 
+const tourSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "A tour must have a name"],
+  },
+  rating: {
+    type: String,
+    required: [true, "A tour must have a rating"],
+    unique: true,
+  },
+  price: {
+    type: Number,
+    required: [true, "A tour must have a price"],
+  },
+});
+
+//modelnames should always start with capital letter
+const Tour = mongoose.model("Tour", tourSchema);
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
