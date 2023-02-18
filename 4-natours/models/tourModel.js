@@ -49,6 +49,7 @@ const tourSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    select: false, //to exclude this field from the response we can use this for sensitive data like passwords
   },
   startDates: [Date],
 });
